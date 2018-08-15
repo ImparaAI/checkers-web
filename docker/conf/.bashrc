@@ -1,5 +1,5 @@
 PS1='\u@\h:\w\$ '
-alias app='cd /var/www/analytics'
+alias app='cd /var/www/checkers-web'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
