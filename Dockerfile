@@ -68,11 +68,11 @@ RUN ln -snf /bin/bash /bin/sh && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # Install app
-COPY . /var/www/checkers-web
+COPY . /var/www/web
 ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN cd /var/www/checkers-web && \
+RUN cd /var/www/web && \
     composer install -n --no-dev && \
-    chown -R www-data:www-data /var/www/checkers-web/storage
+    chown -R www-data:www-data /var/www/web/storage
 
 EXPOSE 9000
 
