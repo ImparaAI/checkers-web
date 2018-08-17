@@ -41,7 +41,8 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     php7-xml \
     php7-xmlwriter \
     php7-zip \
-    php7-zlib
+    php7-zlib \
+    npm
 
 # Get Composer
 RUN curl -sS https://getcomposer.org/installer | php7 -- --install-dir=/usr/local/bin --filename=composer
@@ -73,6 +74,10 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN cd /var/www/web && \
     composer install -n --no-dev && \
     chown -R www-data:www-data /var/www/web/storage
+
+# Upgrade npm
+RUN npm install -g npm && \
+    npm i
 
 EXPOSE 9000
 
