@@ -71,7 +71,8 @@ RUN ln -snf /bin/bash /bin/sh && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # Install nginx after www-data has been created
-RUN apk --no-cache add nginx
+RUN apk --no-cache add nginx && \
+    mkdir -p /run/nginx
 
 # Install app
 COPY . /var/www/web
