@@ -41,7 +41,9 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     php7-xml \
     php7-xmlwriter \
     php7-zip \
-    php7-zlib
+    php7-zlib \
+    npm \
+    nginx
 
 # Get Composer
 RUN curl -sS https://getcomposer.org/installer | php7 -- --install-dir=/usr/local/bin --filename=composer
@@ -51,6 +53,7 @@ COPY docker/conf/supervisord.conf /etc/supervisor.d/supervisord.ini
 COPY docker/conf/php.ini /etc/php7/conf.d/40-custom.ini
 COPY docker/conf/php-fpm-www.conf /etc/php7/php-fpm.d/www.conf
 COPY docker/conf/.bashrc /root/.bashrc
+COPY docker/conf/nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker/start.sh /bin/original_start.sh
 
 # Set up bash, php cli, fpm conf and pid file, start script
@@ -73,6 +76,10 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN cd /var/www/web && \
     composer install -n --no-dev && \
     chown -R www-data:www-data /var/www/web/storage
+
+# Upgrade npm
+RUN npm install -g npm && \
+    npm i
 
 EXPOSE 9000
 
