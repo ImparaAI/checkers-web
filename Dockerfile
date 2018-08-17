@@ -42,8 +42,8 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     php7-xmlwriter \
     php7-zip \
     php7-zlib \
-    npm \
-    nginx
+    npm
+
 
 # Get Composer
 RUN curl -sS https://getcomposer.org/installer | php7 -- --install-dir=/usr/local/bin --filename=composer
@@ -69,6 +69,9 @@ RUN ln -snf /bin/bash /bin/sh && \
     mkdir /root/.ssh && \
     touch /root/.ssh/known_hosts && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+# Install nginx after www-data has been created
+RUN apk --no-cache add nginx
 
 # Install app
 COPY . /var/www/web
