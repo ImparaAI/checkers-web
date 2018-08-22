@@ -79,10 +79,8 @@ COPY . /var/www/web
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN cd /var/www/web && \
     composer install -n --no-dev && \
-    chown -R www-data:www-data /var/www/web/storage
-
-# Upgrade npm
-RUN npm install -g npm && \
+    chown -R www-data:www-data /var/www/web/storage && \
+    npm install -g npm && \
     npm i
 
 EXPOSE 9000
