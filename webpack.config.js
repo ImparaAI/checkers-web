@@ -5,6 +5,12 @@ const BUILD_DIR = path.resolve(__dirname, 'public/js/build');
 module.exports = {
 	mode: 'development',
 	context: APP_DIR,
+	watch: true,
+	watchOptions: {
+		aggregateTimeout: 300,
+		poll: true,
+		ignored: /node_modules/
+	},
 	entry: {
 		app: './app.js'
 	},
@@ -22,10 +28,10 @@ module.exports = {
 					loader: "babel-loader"
 				}
 			},
-			// {
-			// 	test:/\.(s*)css$/,
-			// 	use:['style-loader','css-loader', 'sass-loader']
-			// }
+			{
+				test:/\.(s*)css$/,
+				use:['style-loader','css-loader', 'sass-loader']
+			}
 		]
 	}
 };

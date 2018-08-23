@@ -1,0 +1,23 @@
+.cmp-game-ui
+{
+	$squareWidth: 100px;
+
+	&__board
+	{
+		margin: 50px auto;
+		width: $squareWidth * 8;
+	}
+
+	&__board-square
+	{
+		width: $squareWidth;
+		height: $squareWidth;
+		background-color: #E5E5E5;
+
+		&--dark
+		{
+			background-color: #AD5200;
+		}
+	}
+
+}

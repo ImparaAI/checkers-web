@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import "./style.scss";
 
 class Header extends Component {
   render() {
     return (
-        <div>
-          Impara AIs
+        <div className="cmp-header c-flex c-flex--center-items">
+          Impara AI
         </div>
     );
   }
