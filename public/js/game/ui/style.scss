@@ -1,23 +1,78 @@
 .cmp-game-ui
 {
-	$squareWidth: 100px;
-
 	&__board
 	{
 		margin: 50px auto;
-		width: $squareWidth * 8;
 	}
 
-	&__board-square
+	&__square
 	{
-		width: $squareWidth;
-		height: $squareWidth;
+		position: relative;
 		background-color: #E5E5E5;
 
 		&--dark
 		{
 			background-color: #AD5200;
 		}
+
+		&-number
+		{
+			position: absolute;
+		}
+	}
+
+	&__piece-container
+	{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+
+	&__piece
+	{
+		position: relative;
+		border-radius: 50%;
+		width: 70%;
+		height: 70%;
+
+		&--first-player
+		{
+			background-color: white;
+		}
+
+		&--second-player
+		{
+			background-color: black;
+		}
+
+		&-selection
+		{
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			background-color: green;
+			border-radius: 50%;
+			top: calc(50% - 10px);
+			left: calc(50% - 10px);
+		}
+	}
+
+	&__move-hint-container
+	{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+
+	&__move-hint
+	{
+		position: relative;
+		border-radius: 50%;
+		width: 50%;
+		height: 50%;
+		background-color: rgba(#000, 0.2);
 	}
 
 }
