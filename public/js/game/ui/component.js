@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import classNames from 'classnames';
 import Game from "../Game"
+import Move from "../Move"
 import "./style.scss"
 
 class GameUI extends Component {
@@ -14,6 +15,8 @@ class GameUI extends Component {
 			selectedPiece: null,
 			availableMoves: [],
 		};
+
+		this.state.game.start();
 	}
 
 	render()
@@ -77,11 +80,9 @@ class GameUI extends Component {
 
 	buildMoveHint(square)
 	{
-		// console.log('test', this.state.availableMoves);
 		for (var i = this.state.availableMoves.length - 1; i >= 0; i--)
 		{
-			// console.log(this.state.availableMoves[i].number , square.number);
-			if (this.state.availableMoves[i].number === square.number)
+			if (this.state.availableMoves[i].toSquare.number === square.number)
 			{
 				return (
 					<div className="cmp-game-ui__move-hint-container">
@@ -112,17 +113,14 @@ class GameUI extends Component {
 
 		if (this.state.selectedPiece && this.state.selectedPiece.canMoveTo(square))
 		{
-			this.state.game.move(this.state.selectedPiece, square);
+			let player = this.state.game.getOwnerPlayer(this.state.selectedPiece);
+
+			player.promise.then(() => this.forceUpdate());
+
+			player.handleMoveRequest(new Move(this.state.selectedPiece, this.state.selectedPiece.square, square));
 
 			return this.setState({selectedPiece: null, availableMoves: []});
 		}
-
-
-
-return;
-		this.forceUpdate();
-
-		this.state.game.move(piece, square);
 
 	}
 

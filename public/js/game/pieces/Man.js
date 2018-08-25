@@ -1,3 +1,5 @@
+import Move from "../Move"
+
 class Man {
 
 	constructor(id, isFirstPlayer, square, board)
@@ -6,6 +8,11 @@ class Man {
 		this.isFirstPlayer = isFirstPlayer;
 		this.square = square;
 		this.board = board;
+	}
+
+	belongsToPlayerNumber(playerNumber)
+	{
+		return this.isFirstPlayer ? playerNumber === 1 : playerNumber === 2;
 	}
 
 	getMoves()
@@ -22,7 +29,7 @@ class Man {
 	{
 		let neighbors = this.board.getNeighboringSquares(this.square);
 
-		return neighbors.filter((square) =>
+		neighbors = neighbors.filter((square) =>
 		{
 			if (square.piece)
 				return false;
@@ -35,13 +42,15 @@ class Man {
 
 			return true;
 		});
+
+		return this.buildMoves(neighbors);
 	}
 
 	getCaptureMoves()
 	{
 		let distantNeighbors = this.board.getNeighboringSquares(this.square, 2);
 
-		return distantNeighbors.filter((square) =>
+		distantNeighbors = distantNeighbors.filter((square) =>
 		{
 			let middleSquare = this.board.getMiddleSquare(square, this.square);
 
@@ -60,6 +69,15 @@ class Man {
 
 			return true;
 		});
+
+		return this.buildMoves(distantNeighbors);
+	}
+
+	buildMoves(toSquares)
+	{
+		return toSquares.map((toSquare) => {
+			return new Move(this, this.square, toSquare);
+		});
 	}
 
 	canMoveTo(square)
@@ -67,7 +85,7 @@ class Man {
 		if (square.piece)
 			return false;
 
-		return this.getMoves().filter((move) => move.number == square.number).length;
+		return this.getMoves().filter((move) => move.toSquare.number == square.number).length;
 	}
 
 }

@@ -7,7 +7,7 @@ class Board {
 		this.numRows = 8;
 		this.numCols = 8;
 		this.squares = [];
-		this.moves = [];
+		this.moveHistory = [];
 
 		this.buildSquares();
 		this.buildPieces();
@@ -61,26 +61,57 @@ class Board {
 		}
 	}
 
-	getLastMove()
+	iteratePieces(playerNumber, callback)
 	{
-		if (this.moves.length)
+		for (var row = 0; row < this.squares.length; row++)
 		{
-			return this.moves[this.moves.length -1];
+			for (var col = 0; col < this.squares[row].length; col++)
+			{
+				let piece = this.squares[row][col].piece;
+
+				if (piece && piece.belongsToPlayerNumber(playerNumber))
+				{
+					callback(piece);
+				}
+			}
 		}
 	}
 
-	move(piece, toSquare)
+	getPlayerMoves(player)
 	{
-		//maybe check if it is a valid move
+		let moves = [],
+			captureMoves = [];
 
-		let fromSquare = piece.square;
+		this.iteratePieces(player.number, (piece) => {
+			moves.push(...piece.getMoves());
+		});
 
-		piece.square = toSquare;
-		toSquare.piece = piece;
-		fromSquare.piece = null;
+		captureMoves = moves.filter((move) => move.isCapture);
 
-		if (Math.abs(toSquare.row - fromSquare.row) > 1)
-			this.getMiddleSquare(toSquare, fromSquare).piece = null;
+		if (captureMoves.length)
+			return captureMoves;
+
+		return moves;
+	}
+
+	getLastMove()
+	{
+		if (this.moveHistory.length)
+		{
+			return this.moveHistory[this.moveHistory.length -1];
+		}
+	}
+
+	applyMove(move)
+	{
+		move.piece.square = move.toSquare;
+		move.toSquare.piece = move.piece;
+		move.fromSquare.piece = null;
+
+		if (move.isCapture)
+			this.getMiddleSquare(move.toSquare, move.fromSquare).piece = null;
+
+		this.moveHistory.push(move);
 	}
 
 	isDarkSquare(row, column)

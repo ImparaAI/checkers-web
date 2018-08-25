@@ -21,8 +21,9 @@ class Game {
 		if (this.gameIsOver())
 			return this.endGame();
 
-		this.currentPlayer.move().then((result) =>
+		this.currentPlayer.move().then((move) =>
 		{
+			this.board.applyMove(move)
 			this.currentPlayer = this.getNextPlayer();
 
 			this.progress();
@@ -36,30 +37,25 @@ class Game {
 		if (!lastMove)
 			return this.player1;
 
-		if (self.playerShouldMoveAgain(lastMove))
+		if (this.playerShouldMoveAgain(lastMove))
 		{
-			return lastMove.player;
+			return this.getOwnerPlayer(lastMove.piece);
 		}
 
-		return lastMove.player.number == 1 ? this.player2 : this.player1;
+		return this.getOwnerPlayer(lastMove.piece).number == 1 ? this.player2 : this.player1;
 	}
 
 	playerShouldMoveAgain(lastMove)
 	{
-		if (lastMove.isCapture)
+		if (!lastMove.isCapture)
 			return false;
 
-		return lastMove.piece.getAvailableCaptures() > 1;
+		return lastMove.piece.getCaptureMoves().length > 0;
 	}
 
 	gameIsOver()
 	{
-		return !this.getAvailablesMoves(this.currentPlayer).length;
-	}
-
-	getAvailablesMoves(player)
-	{
-
+		return !this.board.getPlayerMoves(this.currentPlayer).length;
 	}
 
 	move(piece, toSquare)
@@ -67,6 +63,11 @@ class Game {
 		this.board.move(piece, toSquare);
 
 		this.currentPlayer = this.currentPlayer.number == 1 ? this.player2 : this.player1;
+	}
+
+	getOwnerPlayer(piece)
+	{
+		return piece.belongsToPlayerNumber(1) ? this.player1 : this.player2;
 	}
 
 }
