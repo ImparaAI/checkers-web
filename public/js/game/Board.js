@@ -71,7 +71,10 @@ class Board {
 
 				if (piece && piece.belongsToPlayerNumber(playerNumber))
 				{
-					callback(piece);
+					if (callback(piece) === false)
+					{
+						return;
+					}
 				}
 			}
 		}

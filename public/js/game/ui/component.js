@@ -98,28 +98,33 @@ class GameUI extends Component {
 	{
 		if (square.piece)
 		{
-			let piecePlayerNumber = square.piece.isFirstPlayer ? 1 : 2;
-
-			if (this.state.game.currentPlayer.number === piecePlayerNumber)
+			if (square.piece.belongsToPlayerNumber(this.state.game.currentPlayer.number) && square.piece.getMoves().length)
 			{
 				this.setState({
 					selectedPiece: square.piece,
 					availableMoves: square.piece.getMoves(),
 				});
 			}
-
-			return;
 		}
 
-		if (this.state.selectedPiece && this.state.selectedPiece.canMoveTo(square))
+		else if (this.state.selectedPiece && this.state.selectedPiece.canMoveTo(square))
 		{
 			let player = this.state.game.getOwnerPlayer(this.state.selectedPiece);
 
-			player.promise.then(() => this.forceUpdate());
+			player.promise.then((move) =>
+			{
+				if (move.isCapture && move.piece.getCaptureMoves().length)
+				{
+					this.setState({availableMoves: move.piece.getMoves()})
+				}
+
+				else
+					this.setState({selectedPiece: null, availableMoves: []})
+
+				this.forceUpdate();
+			});
 
 			player.handleMoveRequest(new Move(this.state.selectedPiece, this.state.selectedPiece.square, square));
-
-			return this.setState({selectedPiece: null, availableMoves: []});
 		}
 
 	}

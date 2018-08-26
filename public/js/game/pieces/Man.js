@@ -17,6 +17,9 @@ class Man {
 
 	getMoves()
 	{
+		if (!this.isEligibleToMove())
+			return [];
+
 		let captureMoves = this.getCaptureMoves();
 
 		if (captureMoves.length)
@@ -73,11 +76,22 @@ class Man {
 		return this.buildMoves(distantNeighbors);
 	}
 
-	buildMoves(toSquares)
+	isEligibleToMove()
 	{
-		return toSquares.map((toSquare) => {
-			return new Move(this, this.square, toSquare);
-		});
+		let lastMove = this.board.getLastMove();
+
+		if (!lastMove)
+			return true;
+
+		if (lastMove.isCapture && lastMove.piece.isOnSameTeam(this) && lastMove.piece.id !== this.id)
+		{
+			return false
+		}
+
+		if (!this.getCaptureMoves().length && this.teamPieceCanCapture())
+			return false;
+
+		return true;
 	}
 
 	canMoveTo(square)
@@ -86,6 +100,36 @@ class Man {
 			return false;
 
 		return this.getMoves().filter((move) => move.toSquare.number == square.number).length;
+	}
+
+	teamPieceCanCapture()
+	{
+		let playerNumber = this.belongsToPlayerNumber(1) ?  1 : 2,
+			canCapture = false;
+
+		this.board.iteratePieces(playerNumber, (piece) =>
+		{
+			if (piece.getCaptureMoves().length)
+			{
+				canCapture = true;
+
+				return false;
+			}
+		});
+
+		return canCapture;
+	}
+
+	isOnSameTeam(piece)
+	{
+		return this.isFirstPlayer === piece.isFirstPlayer;
+	}
+
+	buildMoves(toSquares)
+	{
+		return toSquares.map((toSquare) => {
+			return new Move(this, this.square, toSquare);
+		});
 	}
 
 }
