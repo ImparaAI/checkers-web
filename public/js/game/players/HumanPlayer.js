@@ -1,15 +1,17 @@
-class Player {
+import Player from "./Player";
+
+class HumanPlayer extends Player {
 
 	constructor(number)
 	{
-		this.number = number;
+		super(number);
 
 		this.isTurn = false;
 		this.promise = null;
 		this.resolvePromise = null;
 	}
 
-	move()
+	move(board)
 	{
 		this.isTurn = true;
 		this.promise = new Promise((resolve) => {
@@ -28,4 +30,4 @@ class Player {
 
 }
 
-export default Player;
+export default HumanPlayer;

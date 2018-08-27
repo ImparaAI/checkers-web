@@ -17,7 +17,13 @@ class GameUI extends Component {
 			availableMoves: [],
 		};
 
-		this.state.game.start();
+
+		this.state.game.progress((this.updateOnMove).bind(this));
+	}
+
+	updateOnMove()
+	{
+		this.forceUpdate();
 	}
 
 	render()
@@ -122,8 +128,6 @@ class GameUI extends Component {
 
 				else
 					this.setState({selectedPiece: null, availableMoves: []})
-
-				this.forceUpdate();
 			});
 
 			player.handleMoveRequest(new Move(this.state.selectedPiece, this.state.selectedPiece.square, square));

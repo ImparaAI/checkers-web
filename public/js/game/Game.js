@@ -1,32 +1,31 @@
 import Board from "./Board"
-import Player from "./Player"
+import HumanPlayer from "./players/HumanPlayer"
+import RandomPlayer from "./players/RandomPlayer"
 
 class Game {
 
 	constructor()
 	{
 		this.board = new Board();
-		this.player1 = new Player(1);
-		this.player2 = new Player(2);
+		this.player1 = new HumanPlayer(1);
+		this.player2 = new RandomPlayer(2);
 		this.currentPlayer = this.player1;
 	}
 
-	start()
-	{
-		this.progress();
-	}
-
-	progress()
+	progress(turnCallback)
 	{
 		if (this.gameIsOver())
 			return this.endGame();
 
-		this.currentPlayer.move().then((move) =>
+		this.currentPlayer.move(this.board).then((move) =>
 		{
 			this.board.applyMove(move);
 			this.currentPlayer = this.getNextPlayer();
 
-			this.progress();
+			if (turnCallback)
+				turnCallback();
+
+			this.progress(turnCallback);
 		});
 	}
 
