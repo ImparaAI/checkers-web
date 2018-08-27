@@ -1,6 +1,6 @@
 import Player from "./Player";
 
-class HumanPlayer extends Player {
+class RandomPlayer extends Player {
 
 	move(board)
 	{
@@ -12,4 +12,4 @@ class HumanPlayer extends Player {
 
 }
 
-export default HumanPlayer;
+export default RandomPlayer;
