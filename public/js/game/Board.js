@@ -1,4 +1,5 @@
 import Man from "./pieces/Man"
+import King from "./pieces/King"
 
 class Board {
 
@@ -112,9 +113,27 @@ class Board {
 		move.fromSquare.piece = null;
 
 		if (move.isCapture)
+		{
 			this.getMiddleSquare(move.toSquare, move.fromSquare).piece = null;
+		}
+
+		if (move.piece instanceof Man && this.pieceOnOpponentEnd(move.piece))
+		{
+			move.toSquare.piece = new King(move.piece.id, move.piece.isFirstPlayer, move.toSquare, this);
+		}
 
 		this.moveHistory.push(move);
+	}
+
+	pieceOnOpponentEnd(piece)
+	{
+		if (piece.square.row === 0 && !piece.isFirstPlayer)
+			return true;
+
+		if (piece.square.row === this.numRows - 1 && piece.isFirstPlayer)
+			return true;
+
+		return false
 	}
 
 	isDarkSquare(row, column)

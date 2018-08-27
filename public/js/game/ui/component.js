@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import classNames from 'classnames';
 import Game from "../Game"
 import Move from "../Move"
+import King from "../pieces/King"
 import "./style.scss"
 
 class GameUI extends Component {
@@ -66,7 +67,8 @@ class GameUI extends Component {
 	{
 		let classes = [
 			'cmp-game-ui__piece',
-			'cmp-game-ui__piece--' + (piece.isFirstPlayer ? 'first-player' : 'second-player')
+			'cmp-game-ui__piece--' + (piece.isFirstPlayer ? 'first-player' : 'second-player'),
+			{'cmp-game-ui__piece--king': piece instanceof King }
 		];
 
 		return (

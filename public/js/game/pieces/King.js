@@ -1,6 +1,6 @@
 import Piece from "./Piece"
 
-class Man extends Piece {
+class King extends Piece {
 
 	getSimpleMoves()
 	{
@@ -9,12 +9,6 @@ class Man extends Piece {
 		neighbors = neighbors.filter((square) =>
 		{
 			if (square.piece)
-				return false;
-
-			if (this.isFirstPlayer && square.number < this.square.number)
-				return false;
-
-			if (!this.isFirstPlayer && square.number > this.square.number)
 				return false;
 
 			return true;
@@ -37,13 +31,6 @@ class Man extends Piece {
 			if (!middleSquare.piece || this.isOnSameTeam(middleSquare.piece))
 				return false;
 
-			if (this.isFirstPlayer && square.number < this.square.number)
-				return false;
-
-			if (!this.isFirstPlayer && square.number > this.square.number)
-				return false;
-
-
 			return true;
 		});
 
@@ -52,4 +39,4 @@ class Man extends Piece {
 
 }
 
-export default Man;
+export default King;

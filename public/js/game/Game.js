@@ -23,7 +23,7 @@ class Game {
 
 		this.currentPlayer.move().then((move) =>
 		{
-			this.board.applyMove(move)
+			this.board.applyMove(move);
 			this.currentPlayer = this.getNextPlayer();
 
 			this.progress();
