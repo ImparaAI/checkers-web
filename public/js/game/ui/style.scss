@@ -1,23 +1,33 @@
 .cmp-game-ui
 {
+	$squareSize: 100px;
+
 	&__board
 	{
 		margin: 50px auto;
+		position: relative;
+		width: $squareSize * 8;
 	}
 
 	&__square
 	{
 		position: relative;
 		background-color: #E5E5E5;
+		width: $squareSize;
+		height: $squareSize;
 
 		&--dark
 		{
-			background-color: #AD5200;
+			background-color: #BA7A3A;
 		}
 
 		&-number
 		{
 			position: absolute;
+			font-family: sans-serif;
+			color: #b1b1b1;
+			top: 5px;
+			left: 5px;
 		}
 	}
 
@@ -26,7 +36,26 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 100%;
+		position: absolute;
+		height: $squareSize;
+		width: $squareSize;
+		transition: all .25s linear;
+
+		@for $row from 0 through 7
+		{
+			&--row-#{$row}
+			{
+				top: $row * $squareSize;
+			}
+		}
+
+		@for $column from 0 through 7
+		{
+			&--column-#{$column}
+			{
+				left: $column * $squareSize;
+			}
+		}
 	}
 
 	&__piece
@@ -35,10 +64,11 @@
 		border-radius: 50%;
 		width: 70%;
 		height: 70%;
+		border: 3px solid white;
 
 		&--first-player
 		{
-			background-color: white;
+			background-color: #CC0000;
 		}
 
 		&--second-player
@@ -46,20 +76,17 @@
 			background-color: black;
 		}
 
-		&--king
+		&--selected
 		{
-			background-color: blue;
+			border-color: yellow;
 		}
 
-		&-selection
+		&--king
 		{
-			position: absolute;
-			width: 20px;
-			height: 20px;
-			background-color: green;
-			border-radius: 50%;
-			top: calc(50% - 10px);
-			left: calc(50% - 10px);
+			background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MiAzNyI+PHBhdGggc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii41IiBkPSJNMSAxbDQgMzVoNTJsNC0zNS0xMCAxNkw0MSAxIDMxIDE3IDIxIDEgMTEgMTd6Ii8+PC9zdmc+);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 50%;
 		}
 	}
 

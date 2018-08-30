@@ -23,9 +23,12 @@ class Game {
 			this.currentPlayer = this.getNextPlayer();
 
 			if (turnCallback)
-				turnCallback();
+			{
+				turnCallback().then(() => this.progress(turnCallback));
+			}
 
-			this.progress(turnCallback);
+			else
+				this.progress();
 		});
 	}
 

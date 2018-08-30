@@ -10,7 +10,6 @@ class GameUI extends Component {
 	constructor(props)
 	{
 		super(props);
-		this.squareSize = 100;
 		this.state = {
 			game: new Game(),
 			selectedPiece: null,
@@ -24,14 +23,21 @@ class GameUI extends Component {
 	updateOnMove()
 	{
 		this.forceUpdate();
+
+		let promise = new Promise((resolve) => {
+			setTimeout(() => resolve(), 250);
+		});
+
+		return promise;
 	}
 
 	render()
 	{
 		return (
 			<div className="cmp-game-ui">
-				<div className="cmp-game-ui__board" style={{width: this.squareSize * 8}}>
+				<div className="cmp-game-ui__board">
 					{this.buildRows()}
+					{this.buildPieces()}
 				</div>
 			</div>
 		);
@@ -56,14 +62,30 @@ class GameUI extends Component {
 				'cmp-game-ui__square--dark': !!square.number
 			};
 
-			return ( <div key={square.id} className={classNames(classes)} style={{width: this.squareSize, height: this.squareSize}}
+			return ( <div key={square.id} className={classNames(classes)}
 					      onClick={this.squareClicked.bind(this, square)}>
 
 					<span className="cmp-game-ui__square-number">{square.number}</span>
 
 					{this.buildMoveHint(square)}
+				</div>
+			);
+		});
+	}
 
-					{square.piece && this.buildPiece(square.piece)}
+	buildPieces()
+	{
+		return this.getOrderedPieces().map((piece) =>
+		{
+			let classes = [
+				'cmp-game-ui__piece-container',
+				'cmp-game-ui__piece-container--row-' + piece.square.row,
+				'cmp-game-ui__piece-container--column-' + piece.square.column,
+			];
+
+			return (
+				<div key={piece.id} className={classNames(classes)} onClick={this.squareClicked.bind(this, piece.square)}>
+					{this.buildPiece(piece)}
 				</div>
 			);
 		});
@@ -74,16 +96,23 @@ class GameUI extends Component {
 		let classes = [
 			'cmp-game-ui__piece',
 			'cmp-game-ui__piece--' + (piece.isFirstPlayer ? 'first-player' : 'second-player'),
+			{'cmp-game-ui__piece--selected': this.state.selectedPiece && this.state.selectedPiece.id === piece.id },
 			{'cmp-game-ui__piece--king': piece instanceof King }
 		];
 
-		return (
-			<div className="cmp-game-ui__piece-container">
-				<div className={classNames(classes)}>
-					{this.state.selectedPiece && this.state.selectedPiece.id === piece.id && <div className="cmp-game-ui__piece-selection"></div>}
-				</div>
-			</div>
-		);
+		return <div className={classNames(classes)}></div>;
+	}
+
+	getOrderedPieces()
+	{
+		let pieces = [];
+
+		this.state.game.board.iteratePieces(null, (piece) =>
+		{
+			pieces.push(piece);
+		});
+
+		return pieces.sort((a, b) => a.id - b.id);
 	}
 
 	buildMoveHint(square)

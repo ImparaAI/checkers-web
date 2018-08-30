@@ -70,7 +70,7 @@ class Board {
 			{
 				let piece = this.squares[row][col].piece;
 
-				if (piece && piece.belongsToPlayerNumber(playerNumber))
+				if (piece && (!playerNumber || piece.belongsToPlayerNumber(playerNumber)))
 				{
 					if (callback(piece) === false)
 					{
