@@ -1,9 +1,8 @@
 class Player {
 
-	constructor(number)
+	constructor()
 	{
-		this.number = number;
-
+		this.number = null;
 		this.isTurn = false;
 		this.promise = null;
 		this.resolvePromise = null;

@@ -2,9 +2,9 @@ import Player from "./Player";
 
 class HumanPlayer extends Player {
 
-	constructor(number)
+	constructor()
 	{
-		super(number);
+		super();
 
 		this.isTurn = false;
 		this.promise = null;

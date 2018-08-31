@@ -1,22 +1,26 @@
 import Player from "./Player";
 import Game from "../Game";
 import Move from "../Move";
+import Man from "../pieces/Man";
 
 class AlphaBetaPlayer extends Player {
 
-	constructor(number)
+	constructor(searchDepth)
 	{
-		super(number);
+		super();
 
 		this.infinity = 999999;
-		this.positionsAnalyzed = 0;
+		this.searchDepth = searchDepth;
 	}
 
 	move(game)
 	{
 		let moves = game.board.getPlayerMoves(this),
 			bestScore = -this.infinity,
-			bestMove = null;
+			bestMoves = [];
+
+		if (moves.length === 1)
+			return Promise.resolve(moves[0]);
 
 		for (var i = 0; i < moves.length; i++)
 		{
@@ -26,60 +30,71 @@ class AlphaBetaPlayer extends Player {
 
 			currentGame.move(this.cloneMove(currentGame, move));
 
-			score = this.ab(currentGame, 8, -this.infinity, this.infinity);
+			score = this.alphaBetaSearch(currentGame, this.searchDepth, -this.infinity, this.infinity);
 
-			if (score > bestScore)
-				bestMove = move;
+			if (score === bestScore)
+			{
+				bestMoves.push(move);
+			}
+
+			else if (score > bestScore)
+			{
+				bestScore = score;
+				bestMoves = [move];
+			}
 		}
 
-		console.log('positionsAnalyzed', this.positionsAnalyzed);
-
-		return Promise.resolve(bestMove);
+		return Promise.resolve(bestMoves[Math.floor(Math.random() * bestMoves.length)]);
 	}
 
-	ab(game, depth, a, b)
+	alphaBetaSearch(game, searchDepth, a, b)
 	{
-		this.positionsAnalyzed++;
-
-		if (depth === 0 || game.gameOver)
+		if (searchDepth === 0 || game.gameOver)
 		{
 			return this.evaluate(game);
 		}
 
 		if (game.currentPlayer.number === this.number)
 		{
-			let value = -this.infinity,
-				children = this.buildChilden(game);
-
-			for (var i = 0; i < children.length; i++)
-			{
-				value = Math.max(value, this.ab(children[i], depth - 1, a, b, null));
-
-				a = Math.max(a, value);
-
-				if (a >= b)
-					break;
-			}
-
-			return value;
+			return this.searchMyMoves(game, searchDepth, a, b);
 		}
 
-		else
+		return this.searchOpponentMoves(game, searchDepth, a, b);
+	}
+
+	searchMyMoves(game, searchDepth, a, b)
+	{
+		let value = -this.infinity,
+			children = this.buildChilden(game);
+
+		for (var i = 0; i < children.length; i++)
 		{
-			let value = this.infinity,
-				children = this.buildChilden(game);
+			value = Math.max(value, this.alphaBetaSearch(children[i], searchDepth - 1, a, b));
 
-			for (var i = 0; i < children.length; i++)
-			{
-				value = Math.min(value, this.ab(children[i], depth - 1, a, b, true));
-				b = Math.min(b, value);
+			a = Math.max(a, value);
 
-				if (a >= b)
-					break;
-			}
-
-			return value;
+			if (a >= b)
+				break;
 		}
+
+		return value;
+	}
+
+	searchOpponentMoves(game, searchDepth, a, b)
+	{
+		let value = this.infinity,
+			children = this.buildChilden(game);
+
+		for (var i = 0; i < children.length; i++)
+		{
+			value = Math.min(value, this.alphaBetaSearch(children[i], searchDepth - 1, a, b));
+			b = Math.min(b, value);
+
+			if (a >= b)
+				break;
+		}
+
+		return value;
 	}
 
 	buildChilden(game)
@@ -101,10 +116,16 @@ class AlphaBetaPlayer extends Player {
 
 	evaluate(game)
 	{
-		let myPieceCount = game.board.countPieces(this.number),
-			opponentPieceCount = game.board.countPieces(this.number === 1 ? 2 : 1);
+		let score = 0;
 
-		return myPieceCount - opponentPieceCount;
+		game.board.iteratePieces(null, (piece) =>
+		{
+			let mulitplier = piece.belongsToPlayerNumber(this.number) ?  1 : -1;
+
+			score += mulitplier * (piece instanceof Man ? 1 : 1.4);
+		});
+
+		return score;
 	}
 
 	cloneGame(game)

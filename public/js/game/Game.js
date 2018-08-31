@@ -1,15 +1,16 @@
 import Board from "./Board"
-import HumanPlayer from "./players/HumanPlayer"
-import AlphaBetaPlayer from "./players/AlphaBetaPlayer"
+import NullPlayer from "./players/NullPlayer"
 
 class Game {
 
-	constructor()
+	constructor(player1, player2)
 	{
 		this.board = new Board();
-		this.player1 = new HumanPlayer(1);
-		this.player2 = new AlphaBetaPlayer(2);
+		this.player1 = player1 || new NullPlayer;
+		this.player2 = player2 || new NullPlayer;
 		this.currentPlayer = this.player1;
+		this.player1.number = 1;
+		this.player2.number = 2;
 		this.gameOver = false;
 		this.winner = null;
 	}

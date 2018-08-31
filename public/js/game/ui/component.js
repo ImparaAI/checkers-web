@@ -3,6 +3,9 @@ import classNames from 'classnames';
 import Game from "../Game"
 import Move from "../Move"
 import King from "../pieces/King"
+import HumanPlayer from "../players/HumanPlayer"
+import AlphaBetaPlayer from "../players/AlphaBetaPlayer"
+
 import "./style.scss"
 
 class GameUI extends Component {
@@ -11,11 +14,10 @@ class GameUI extends Component {
 	{
 		super(props);
 		this.state = {
-			game: new Game(),
+			game: new Game(new HumanPlayer(), new AlphaBetaPlayer(8)),
 			selectedPiece: null,
 			availableMoves: [],
 		};
-
 
 		this.state.game.progress((this.updateOnMove).bind(this));
 	}

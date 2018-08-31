@@ -81,15 +81,6 @@ class Board {
 		}
 	}
 
-	countPieces(playerNumber)
-	{
-		let count = 0;
-
-		this.iteratePieces((piece) => count++);
-
-		return count
-	}
-
 	getPlayerMoves(player)
 	{
 		let moves = [],
