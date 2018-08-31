@@ -1,6 +1,6 @@
 import Board from "./Board"
 import HumanPlayer from "./players/HumanPlayer"
-import RandomPlayer from "./players/RandomPlayer"
+import AlphaBetaPlayer from "./players/AlphaBetaPlayer"
 
 class Game {
 
@@ -8,8 +8,10 @@ class Game {
 	{
 		this.board = new Board();
 		this.player1 = new HumanPlayer(1);
-		this.player2 = new RandomPlayer(2);
+		this.player2 = new AlphaBetaPlayer(2);
 		this.currentPlayer = this.player1;
+		this.gameOver = false;
+		this.winner = null;
 	}
 
 	progress(turnCallback)
@@ -17,10 +19,9 @@ class Game {
 		if (this.gameIsOver())
 			return this.endGame();
 
-		this.currentPlayer.move(this.board).then((move) =>
+		this.currentPlayer.move(this).then((move) =>
 		{
-			this.board.applyMove(move);
-			this.currentPlayer = this.getNextPlayer();
+			this.move(move);
 
 			if (turnCallback)
 			{
@@ -30,6 +31,12 @@ class Game {
 			else
 				this.progress();
 		});
+	}
+
+	move(move)
+	{
+		this.board.applyMove(move);
+		this.currentPlayer = this.getNextPlayer();
 	}
 
 	getNextPlayer()
@@ -60,11 +67,10 @@ class Game {
 		return !this.board.getPlayerMoves(this.currentPlayer).length;
 	}
 
-	move(piece, toSquare)
+	endGame()
 	{
-		this.board.move(piece, toSquare);
-
-		this.currentPlayer = this.currentPlayer.number == 1 ? this.player2 : this.player1;
+		this.gameOver = true;
+		this.winner = this.currentPlayer.number == 1 ? this.player2 : this.player1;
 	}
 
 	getOwnerPlayer(piece)

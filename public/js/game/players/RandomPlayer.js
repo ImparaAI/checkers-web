@@ -2,9 +2,9 @@ import Player from "./Player";
 
 class RandomPlayer extends Player {
 
-	move(board)
+	move(game)
 	{
-		let moves = board.getPlayerMoves(this),
+		let moves = game.board.getPlayerMoves(this),
 			move = moves[Math.floor(Math.random()*moves.length)];
 
 		return Promise.resolve(move);

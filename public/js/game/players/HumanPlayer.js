@@ -11,7 +11,7 @@ class HumanPlayer extends Player {
 		this.resolvePromise = null;
 	}
 
-	move(board)
+	move()
 	{
 		this.isTurn = true;
 		this.promise = new Promise((resolve) => {
