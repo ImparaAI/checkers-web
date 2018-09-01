@@ -1,4 +1,5 @@
 import Board from "./Board"
+import Move from "./Move"
 import NullPlayer from "./players/NullPlayer"
 
 class Game {
@@ -17,9 +18,6 @@ class Game {
 
 	progress(turnCallback)
 	{
-		if (this.gameIsOver())
-			return this.endGame();
-
 		this.currentPlayer.move(this).then((move) =>
 		{
 			this.move(move);
@@ -36,8 +34,14 @@ class Game {
 
 	move(move)
 	{
+		if (Array.isArray(move))
+			move = this.buildMoveFromSquareNumbers(...move);
+
 		this.board.applyMove(move);
 		this.currentPlayer = this.getNextPlayer();
+
+		if (this.gameIsOver())
+			return this.endGame();
 	}
 
 	getNextPlayer()
@@ -77,6 +81,19 @@ class Game {
 	getOwnerPlayer(piece)
 	{
 		return piece.belongsToPlayerNumber(1) ? this.player1 : this.player2;
+	}
+
+	buildMoveFromSquareNumbers(fromNumber, toNumber)
+	{
+		let fromSquare = this.board.getSquareByNumber(fromNumber),
+			toSquare = this.board.getSquareByNumber(toNumber);
+
+		return new Move(fromSquare.piece, fromSquare, toSquare);
+	}
+
+	getPossibleMoves()
+	{
+		return this.board.getPlayerMoves(this.currentPlayer);
 	}
 
 }

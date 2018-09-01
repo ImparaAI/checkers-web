@@ -175,6 +175,20 @@ class Board {
 		return this.squares[row][column];
 	}
 
+	getSquareByNumber(number)
+	{
+		for (var row = 0; row < this.squares.length; row++)
+		{
+			for (var col = 0; col < this.squares[row].length; col++)
+			{
+				if (this.squares[row][col].number === number)
+				{
+					return this.squares[row][col];
+				}
+			}
+		}
+	}
+
 	isValidCoordinate(row, column)
 	{
 		let rowValid = row >= 0 && row < this.numRows,

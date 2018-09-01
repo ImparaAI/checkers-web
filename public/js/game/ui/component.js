@@ -14,7 +14,7 @@ class GameUI extends Component {
 	{
 		super(props);
 		this.state = {
-			game: new Game(new HumanPlayer(), new AlphaBetaPlayer(8)),
+			game: new Game(new HumanPlayer(), new AlphaBetaPlayer(3)),
 			selectedPiece: null,
 			availableMoves: [],
 		};
