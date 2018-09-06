@@ -1,10 +1,11 @@
 .cmp-game-ui
 {
 	$squareSize: 100px;
+	margin-bottom: 50px;
 
 	&__board
 	{
-		margin: 50px auto;
+		margin: 10px auto;
 		position: relative;
 		width: $squareSize * 8;
 		box-shadow: -3px 4px 20px 3px #909090;
@@ -106,6 +107,16 @@
 		width: 50%;
 		height: 50%;
 		background-color: rgba(#000, 0.2);
+	}
+
+	&__move-history
+	{
+		text-align: center;
+
+		&-move
+		{
+			margin-right: 10px;
+		}
 	}
 
 }

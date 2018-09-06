@@ -14,7 +14,7 @@ class GameUI extends Component {
 	{
 		super(props);
 		this.state = {
-			game: new Game(new HumanPlayer(), new AlphaBetaPlayer(3)),
+			game: new Game(new HumanPlayer(), new HumanPlayer()),
 			selectedPiece: null,
 			availableMoves: [],
 		};
@@ -40,6 +40,9 @@ class GameUI extends Component {
 				<div className="cmp-game-ui__board">
 					{this.buildRows()}
 					{this.buildPieces()}
+				</div>
+				<div className="cmp-game-ui__move-history">
+					{this.buildMoveHistory()}
 				</div>
 			</div>
 		);
@@ -131,6 +134,18 @@ class GameUI extends Component {
 
 			}
 		}
+	}
+
+	buildMoveHistory()
+	{
+		return this.state.game.board.moveHistory.map((move, index) =>
+		{
+			return (
+				<span key={index} className="cmp-game-ui__move-history-move">
+					[{move.fromSquare.number}, {move.toSquare.number}],
+				</span>
+			);
+		});
 	}
 
 	squareClicked(square)
