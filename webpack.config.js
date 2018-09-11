@@ -31,6 +31,15 @@ module.exports = {
 			{
 				test:/\.(s*)css$/,
 				use:['style-loader','css-loader', 'sass-loader']
+			},
+			{
+				test:/\.wav$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						publicPath: 'js/build'
+					}
+				}
 			}
 		]
 	}

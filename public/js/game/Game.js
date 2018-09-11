@@ -24,7 +24,7 @@ class Game {
 
 			if (turnCallback)
 			{
-				turnCallback().then(() => this.progress(turnCallback));
+				turnCallback(move).then(() => this.progress(turnCallback));
 			}
 
 			else

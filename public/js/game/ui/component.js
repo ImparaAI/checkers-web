@@ -5,6 +5,8 @@ import Move from "../Move"
 import King from "../pieces/King"
 import HumanPlayer from "../players/HumanPlayer"
 import AlphaBetaPlayer from "../players/AlphaBetaPlayer"
+import moveSound from "../sounds/move.wav"
+import captureSound from "../sounds/capture.wav"
 
 import "./style.scss"
 
@@ -20,11 +22,15 @@ class GameUI extends Component {
 		};
 
 		this.state.game.progress((this.updateOnMove).bind(this));
+		this.moveSound = new Audio(moveSound);
+		this.captureSound = new Audio(captureSound);
 	}
 
-	updateOnMove()
+	updateOnMove(move)
 	{
 		this.forceUpdate();
+
+		move.isCapture ? this.captureSound.play() : this.moveSound.play();
 
 		let promise = new Promise((resolve) => {
 			setTimeout(() => resolve(), 250);
