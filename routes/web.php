@@ -11,9 +11,9 @@
 |
 */
 
-$router->get('predict', function () use ($router) {
-	return response()->json(['move' => [23, 18]]);
-});
+$router->get('predict', [
+	'uses' => 'Prediction@get'
+]);
 
 $router->get('/', function () use ($router) {
 	return view('index');
