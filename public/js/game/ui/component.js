@@ -1,14 +1,14 @@
-import React, { Component } from "react"
-import classNames from 'classnames';
+import "./style.scss"
 import Game from "../Game"
 import Move from "../Move"
 import King from "../pieces/King"
+import classNames from 'classnames';
+import React, { Component } from "react"
+import moveSound from "../sounds/move.wav"
+import HttpPlayer from "../players/HttpPlayer"
+import captureSound from "../sounds/capture.wav"
 import HumanPlayer from "../players/HumanPlayer"
 import AlphaBetaPlayer from "../players/AlphaBetaPlayer"
-import moveSound from "../sounds/move.wav"
-import captureSound from "../sounds/capture.wav"
-
-import "./style.scss"
 
 class GameUI extends Component {
 
@@ -16,7 +16,7 @@ class GameUI extends Component {
 	{
 		super(props);
 		this.state = {
-			game: new Game(new HumanPlayer(), new HumanPlayer()),
+			game: new Game(new HumanPlayer(), new HttpPlayer('/predict')),
 			selectedPiece: null,
 			availableMoves: [],
 		};
