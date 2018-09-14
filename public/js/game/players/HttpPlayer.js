@@ -10,9 +10,16 @@ class HttpPlayer extends Player {
 		this.url = url;
 	}
 
-	move()
+	move(game)
 	{
-		return axios.get(this.url).then(response => response.data.move)
+		let moves = JSON.stringify(this.getMoves(game));
+
+		return axios.get(this.url, {params:{moves: moves}}).then(response => response.data.move);
+	}
+
+	getMoves(game)
+	{
+		return game.board.moveHistory.map((move) => [move.fromSquare.number, move.toSquare.number]);
 	}
 
 }
