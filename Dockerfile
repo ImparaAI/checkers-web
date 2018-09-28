@@ -42,8 +42,8 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     php7-xmlwriter \
     php7-zip \
     php7-zlib \
-    npm
-
+    npm \
+    yarn
 
 # Get Composer
 RUN curl -sS https://getcomposer.org/installer | php7 -- --install-dir=/usr/local/bin --filename=composer
