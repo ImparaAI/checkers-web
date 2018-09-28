@@ -83,6 +83,8 @@ RUN cd /var/www/web && \
     npm install -g npm && \
     npm i
 
+WORKDIR /var/www/web
+
 EXPOSE 9000
 
 ENV TERM xterm-color
