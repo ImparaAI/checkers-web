@@ -15,6 +15,14 @@ $router->get('predict', [
 	'uses' => 'Prediction@get'
 ]);
 
+$router->post('training/session', [
+	'uses' => 'TrainingSession@create'
+]);
+
+$router->get('training/sessions', [
+	'uses' => 'TrainingSession@getAll'
+]);
+
 $router->get('/', function () use ($router) {
 	return view('index');
 });
