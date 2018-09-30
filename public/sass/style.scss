@@ -1,3 +1,6 @@
 @import "reset";
-@import "components/style";
 @include global-reset;
+
+@import "mixins/style";
+@import "components/style";
+@import "utilities/style";

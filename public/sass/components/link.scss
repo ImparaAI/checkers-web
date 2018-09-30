@@ -13,4 +13,9 @@
 			text-decoration: none;
 		}
 	}
+
+	&--unselectable
+	{
+		@include unselectable;
+	}
 }

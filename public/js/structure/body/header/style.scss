@@ -19,14 +19,22 @@
 	{
 		width: 40%;
 		margin: 30px auto 0;
-		padding: 10px 15px;
+		padding: 0px 15px;
 		border-top: 1px solid #dedede;
 		border-bottom: 1px solid #dedede;
 
-		> div > a
+		&-link
 		{
 			display: inline-block;
-			padding: 3px 10px;
+			padding: 13px 25px;
+			border-top: 1px solid transparent;
+			border-bottom: 1px solid transparent;
+
+			&--active
+			{
+				border-top: 1px solid #b3b3b3;
+				border-bottom: 1px solid #b3b3b3;
+			}
 		}
 	}
 }

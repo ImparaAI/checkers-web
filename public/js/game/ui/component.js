@@ -43,7 +43,7 @@ class GameUI extends Component {
 	{
 		return (
 			<div className="cmp-game-ui">
-				<div className="cmp-game-ui__board">
+				<div className="cmp-game-ui__board u-unselectable">
 					{this.buildRows()}
 					{this.buildPieces()}
 				</div>

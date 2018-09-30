@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import "./style.scss"
 
 class Header extends Component {
@@ -10,9 +10,21 @@ class Header extends Component {
 				<div className="cmp-body-header__subtitle">by <a className="c-link c-link--undecorated" href="https://github.com/ImparaAI" target="_blank">ImparaAI</a></div>
 
 				<div className="cmp-body-header__menu c-flex c-flex--space-between">
-					<div><Link to="/play" className="c-link c-link--undecorated">Play</Link></div>
-					<div><Link to="/training/sessions" className="c-link c-link--undecorated">Training Sessions</Link></div>
-					<div><Link to="/training/session/restart" className="c-link c-link--undecorated">Retrain</Link></div>
+					<div>
+						<NavLink to="/play"
+						         className="c-link c-link--undecorated c-link--unselectable cmp-body-header__menu-link"
+						         activeClassName="cmp-body-header__menu-link--active">Play</NavLink>
+					</div>
+					<div>
+						<NavLink to="/training/sessions"
+						         className="c-link c-link--undecorated c-link--unselectable cmp-body-header__menu-link"
+						         activeClassName="cmp-body-header__menu-link--active">Training Sessions</NavLink>
+					</div>
+					<div>
+						<NavLink to="/training/session/restart"
+						         className="c-link c-link--undecorated c-link--unselectable cmp-body-header__menu-link"
+						         activeClassName="cmp-body-header__menu-link--active">Retrain</NavLink>
+					</div>
 				</div>
 			</div>
 		);
