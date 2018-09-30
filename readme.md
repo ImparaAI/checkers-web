@@ -22,17 +22,17 @@ This will build the PHP and JS build dependencies.
 To build:
 
 ```bash
-npm run-script build
+npm run build
 ```
 
 Build on any file changes:
 
 ```bash
-npm run-script watch
+npm run watch
 ```
 
 To test:
 
 ```bash
-npm run-script test
+npm run test
 ```
