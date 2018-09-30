@@ -1,6 +1,7 @@
 const path = require('path');
 const APP_DIR = path.resolve(__dirname, 'public/js');
 const BUILD_DIR = path.resolve(__dirname, 'public/js/build');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -16,9 +17,12 @@ module.exports = {
 	},
 	output: {
 		path: BUILD_DIR,
-		filename: 'app.js',
+		filename: '[name].[contenthash].js',
 		publicPath: "/"
 	},
+	plugins: [
+		 new ManifestPlugin()
+	],
 	module: {
 		rules: [
 			{

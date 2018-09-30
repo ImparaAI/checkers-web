@@ -8,6 +8,6 @@
     </head>
     <body>
     	<div id="app"></div>
-		<script src="/js/build/app.js"></script>
+		<script type="text/javascript" src="<?php echo versioned_asset_url('app.js')?>"></script>
     </body>
 </html>
