@@ -1,5 +1,5 @@
-import Player from "./Player";
 import axios from 'axios'
+import Player from './Player'
 
 class HttpPlayer extends Player {
 

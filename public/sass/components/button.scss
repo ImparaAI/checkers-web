@@ -1,0 +1,74 @@
+.c-button
+{
+	position: relative;
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	font-family: sans-serif;
+	text-transform: uppercase;
+	border-radius: 3px;
+	font-weight: 500;
+	text-align: center;
+	box-sizing: border-box;
+	vertical-align: middle;
+	letter-spacing: 2px;
+	@include unselectable;
+
+	&:before
+	{
+		content: '';
+		display: inline-block;
+		height: 115%;
+		vertical-align: middle;
+	}
+
+	&:disabled
+	{
+		color: #fff;
+		background: #D4D4D4;
+		cursor: default;
+	}
+}
+
+@mixin c-button--big
+{
+	font-size: 18px;
+	height: 54px;
+	min-width: 190px;
+	border-width: 3px;
+	padding: 0 20px;
+}
+
+@mixin c-button--medium
+{
+	font-size: 12px;
+	height: 31px;
+	min-width: 160px;
+	border-width: 2px;
+	padding: 0 15px;
+}
+
+@mixin c-button--small
+{
+	font-size: 11px;
+	height: 30px;
+	min-width: 80px;
+	border-width: 2px;
+	padding: 0 10px;
+}
+
+.c-button--gray
+{
+	background: #d3d3d3;
+}
+
+.c-button--loading
+{
+	&:after
+	{
+		display: inline-block;
+		font-family: FontAwesome;
+		content: '\f110';
+		animation: fa-spin 2s infinite linear;
+	}
+}

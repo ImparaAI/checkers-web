@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import "./style.scss"
 
 class Home extends Component {

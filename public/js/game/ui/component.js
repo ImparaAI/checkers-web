@@ -2,7 +2,7 @@ import "./style.scss"
 import Game from "../Game"
 import Move from "../Move"
 import King from "../pieces/King"
-import classNames from 'classnames';
+import classNames from 'classnames'
 import React, { Component } from "react"
 import moveSound from "../sounds/move.wav"
 import HttpPlayer from "../players/HttpPlayer"

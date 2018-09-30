@@ -16,7 +16,7 @@ class Header extends Component {
 						         activeClassName="cmp-body-header__menu-link--active">Play</NavLink>
 					</div>
 					<div>
-						<NavLink to="/training/sessions"
+						<NavLink to="/sessions"
 						         className="c-link c-link--undecorated c-link--unselectable cmp-body-header__menu-link"
 						         activeClassName="cmp-body-header__menu-link--active">Training Sessions</NavLink>
 					</div>
