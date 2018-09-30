@@ -81,7 +81,7 @@ RUN cd /var/www/web && \
     composer install -n --no-dev && \
     chown -R www-data:www-data /var/www/web/storage && \
     npm install -g npm && \
-    npm i
+    yarn install
 
 WORKDIR /var/www/web
 
