@@ -1,4 +1,4 @@
-A Lumen/React web site for playing checkers against an AI.
+A Lumen/React app for playing checkers against an AI.
 
 This was built to work in conjunction with the [prediction app](https://github.com/ImparaAI/checkers-prediction) and can easily be run in a Kubernetes cluster [here](https://github.com/ImparaAI/checkers-kubernetes). The web app communicates to the prediction app within the cluster. From the web UI you can create new training sessions, view previous training sessions, and play against the current AI.
 
