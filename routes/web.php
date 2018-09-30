@@ -23,6 +23,7 @@ $router->get('training/sessions', [
 	'uses' => 'TrainingSession@getAll'
 ]);
 
-$router->get('/', function () use ($router) {
+$router->get('{any:.*}', function () use ($router)
+{
 	return view('index');
 });

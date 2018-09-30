@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from "react-dom";
 import Body from "./structure/body/component"
+import { BrowserRouter } from 'react-router-dom'
 import "../sass/style.scss"
 
 const element = (
-	<div>
+	<BrowserRouter>
 		<Body/>
-	</div>
+	</BrowserRouter>
 );
 
 ReactDOM.render(

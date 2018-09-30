@@ -1,0 +1,32 @@
+.cmp-body-header
+{
+	padding-top: 30px;
+	margin-bottom: 60px;
+	text-align: center;
+
+	&__title
+	{
+		font-size: 30px;
+		margin-bottom: 10px;
+	}
+
+	&__subtitle
+	{
+		color: #b3b3b3;
+	}
+
+	&__menu
+	{
+		width: 40%;
+		margin: 30px auto 0;
+		padding: 10px 15px;
+		border-top: 1px solid #dedede;
+		border-bottom: 1px solid #dedede;
+
+		> div > a
+		{
+			display: inline-block;
+			padding: 3px 10px;
+		}
+	}
+}

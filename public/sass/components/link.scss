@@ -1,0 +1,16 @@
+.c-link
+{
+	font-weight: 400;
+	text-decoration: underline;
+	color: #56505f;
+
+	&--undecorated
+	{
+		text-decoration: none;
+
+		&:link, &:visited, &:hover, &:active
+		{
+			text-decoration: none;
+		}
+	}
+}
