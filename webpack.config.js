@@ -22,7 +22,7 @@ module.exports = {
 	},
 	plugins: [
 		new ManifestPlugin(),
-		new CleanWebpackPlugin(['public/js/build'], {verbose: true})
+		new CleanWebpackPlugin(['public/js/build/*.js'], {watch: true, verbose: true})
 	],
 	module: {
 		rules: [
