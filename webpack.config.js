@@ -7,7 +7,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
 	mode: 'development',
 	context: APP_DIR,
-	watch: true,
 	watchOptions: {
 		aggregateTimeout: 300,
 		poll: true,
