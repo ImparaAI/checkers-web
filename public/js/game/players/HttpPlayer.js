@@ -14,7 +14,7 @@ class HttpPlayer extends Player {
 	{
 		let moves = JSON.stringify(this.getMoves(game));
 
-		return axios.get(this.url, {params:{moves: moves}}).then(response => response.data.move);
+		return axios.get(this.url, {params:{moves: moves}}).then(response => game.buildMoveFromSquareNumbers(...response.data.move));
 	}
 
 	getMoves(game)
