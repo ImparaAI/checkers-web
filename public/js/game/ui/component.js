@@ -70,7 +70,7 @@ class GameUI extends Component {
 		{
 			let classes = {
 				'cmp-game-ui__square': true,
-				'cmp-game-ui__square--dark': !!square.number
+				'cmp-game-ui__square--dark': !!square.number,
 			};
 
 			return ( <div key={square.id} className={classNames(classes)}
@@ -78,10 +78,22 @@ class GameUI extends Component {
 
 					<span className="cmp-game-ui__square-number">{square.number}</span>
 
+					{this.buildLastMoveOverlay(square)}
 					{this.buildMoveHint(square)}
 				</div>
 			);
 		});
+	}
+
+	buildLastMoveOverlay(square)
+	{
+		let moveCount = this.state.game.board.moveHistory.length,
+			lastMove = moveCount ? this.state.game.board.moveHistory[moveCount - 1] : null;
+
+		if (lastMove && (lastMove.toSquare == square || lastMove.fromSquare == square))
+		{
+			return <div className="cmp-game-ui__square-last-move"></div>;
+		}
 	}
 
 	buildPieces()
