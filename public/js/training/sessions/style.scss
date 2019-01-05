@@ -4,9 +4,21 @@
 	{
 		margin: 0 auto;
 
+		th
+		{
+			font-weight: bold;
+			font-size: 15px;
+		}
+
 		td, th
 		{
-			padding: 7px 10px 7px 0;
+			padding: 7px 12px;
+			border-right: 1px solid #e6e6e6;
+
+			&:last-child
+			{
+				border-right: none;
+			}
 		}
 	}
 }
